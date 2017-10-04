@@ -64,7 +64,7 @@ then
   exit $?
 fi
 
-n_agents="$(docker ps | grep -Pc 'server1|node[23]')"
+n_agents="$(docker ps | grep -Ec 'server1|node[23]')"
 
 if [ -n "$n_agents" -a "$n_agents" = 3 ]
 then
