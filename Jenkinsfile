@@ -35,6 +35,7 @@ podTemplate(label: "${project_name}", containers: [
         // only push from master.   check that we are on samsung-cnct fork
         stage('Publish') {
           if (git_branch.contains(publish_branch) && git_uri.contains(github_org)) {
+            kubesh "docker login -u ${USERNAME} -p ${PASSWORD} quay.io"
             kubesh "docker tag ${project_name}:${env.JOB_BASE_NAME}.${env.BUILD_ID} quay.io/${quay_org}/${project_name}:${image_tag}"
             kubesh "docker push quay.io/${quay_org}/${project_name}:${image_tag}"
           } else {
