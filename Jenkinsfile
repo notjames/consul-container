@@ -3,7 +3,7 @@ github_org             = "samsung-cnct"
 quay_org               = "samsung_cnct"
 publish_branch         = "master"
 image_tag              = "${env.RELEASE_VERSION}" != "null" ? "${env.RELEASE_VERSION}" : "latest"
-project_name           = "solas-container"
+project_name           = "consul-container"
 
 podTemplate(label: "${project_name}", containers: [
     containerTemplate(name: 'jnlp', image: "quay.io/${quay_org}/custom-jnlp:0.1", args: '${computer.jnlpmac} ${computer.name}'),
@@ -29,7 +29,7 @@ podTemplate(label: "${project_name}", containers: [
         }
 
         stage('Test') {
-          kubesh "echo The test stage is empty"
+          kubesh "test/consul.sh ${project_name}:${env.JOB_BASE_NAME}.${env.BUILD_ID}"
         }
 
         // only push from master.   check that we are on samsung-cnct fork
