@@ -29,7 +29,7 @@ start_images()
       docker run -d --name server$n -h server$n $img_name agent -dev -bind 0.0.0.0
       join_ip=$(master_node_ip)
     else
-      if [ -z "$join_ip" ]]
+      if [ -z "$join_ip" ]
       then
         echo >&2 "Unable to determine master node IP address. Quitting"
         return 5
